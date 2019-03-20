@@ -21,7 +21,7 @@ class DescriptiveData(Resource):
         for i in range(df.shape[0]):
             res_json = {}
             res_json["nbhId"] = df.iloc[i]["neighbourhood"]
-            res_json[col] = df.iloc[i][col]
+            res_json[col] = float(df.iloc[i][col])
             res_list.append(res_json)
         return res_list
         

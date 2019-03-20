@@ -1,4 +1,4 @@
-nbhId,neighbourhood_group,Superhost,Response Hour,Response Rate
+neighbourhood,neighbourhood_group,Superhost,Response Hour,Response Rate
 Bayswater,Manhattan,0.00 ,2.44 ,0.94 
 Allerton,Manhattan,7.00 ,5.48 ,0.93 
 City Island,Brooklyn,5.00 ,4.09 ,0.92 

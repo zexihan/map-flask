@@ -17,10 +17,10 @@ for type in types:
 class DescriptiveData(Resource):
     def get(self, type, col):
         df = df_map[type]
-        res = {}
+        res_list = []
         for i in range(df.shape[0]):
-            res[str(i)] = df.iloc[i][col]
-        return res
+            res_list.append(df.iloc[i][col])
+        return res_list
         
 api.add_resource(DescriptiveData, '/api/<type>/<col>')
 

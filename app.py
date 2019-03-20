@@ -19,7 +19,10 @@ class DescriptiveData(Resource):
         df = df_map[type]
         res_list = []
         for i in range(df.shape[0]):
-            res_list.append(df.iloc[i][col])
+            res_json = {}
+            res_json["nbhId"] = df.iloc[i]["neighbourhood"]
+            res_json[col] = df.iloc[i][col]
+            res_list.append(res_json)
         return res_list
         
 api.add_resource(DescriptiveData, '/api/<type>/<col>')

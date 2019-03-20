@@ -1,4 +1,6 @@
 Flask
+Flask-RESTful
+Flask-CORS
 gunicorn
 pandas
 numpy

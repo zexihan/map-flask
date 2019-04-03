@@ -26,6 +26,7 @@ class DescriptiveData(Resource):
         return res_list
 
 nlp_df = pd.read_csv("data/nlp.csv")
+nlp_df = nlp_df.replace({pd.np.nan: None})
 
 class NLPData(Resource):
     def get(self):

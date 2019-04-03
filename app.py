@@ -24,8 +24,64 @@ class DescriptiveData(Resource):
             res_json[col] = float(df.iloc[i][col])
             res_list.append(res_json)
         return res_list
-        
+
+nlp_df = pd.read_csv("data/nlp.csv")
+
+class NLPData(Resource):
+    def get(self):
+        res_list = []
+        for i in range(nlp_df.shape[0]):
+            res_json = {}
+            res_json["nbhId"] = nlp_df.iloc[i]["neighbourhood"]
+            columns = ["cluster_sum", "noise", "safety", "entertainment", \
+                       "restaurant", "host", "expense", "shopping", "nightlife", "transit"]
+            for col in columns:
+                res_json[col] = nlp_df.iloc[i][col]
+            res_list.append(res_json)
+        return res_list
+    
+class NLPDataNbh(Resource):
+    def get(self, nbh_idx):
+        nbh_idx = int(nbh_idx)
+        res_json = {}
+        res_json["nbhId"] = nlp_df.iloc[nbh_idx]["neighbourhood"]
+        columns = ["cluster_sum", "noise", "safety", "entertainment", \
+                   "restaurant", "host", "expense", "shopping", "nightlife", "transit"]        
+        for col in columns:
+            res_json[col] = nlp_df.iloc[nbh_idx][col]
+        return res_json
+
+scores_df = pd.read_csv("data/scores.csv")
+
+class ScoresData(Resource):
+    def get(self):
+        res_list = []
+        for i in range(scores_df.shape[0]):
+            res_json = {}
+            res_json["nbhId"] = scores_df.iloc[i]["neighbourhood"]
+            columns = ["noise", "safety", "shopping", \
+                       "restaurant", "nightlife", "expense", "transit"]
+            for col in columns:
+                res_json[col] = float(scores_df.iloc[i][col])
+            res_list.append(res_json)
+        return res_list
+
+class ScoresDataNbh(Resource):
+    def get(self, nbh_idx):
+        nbh_idx = int(nbh_idx)
+        res_json = {}
+        res_json["nbhId"] = scores_df.iloc[nbh_idx]["neighbourhood"]
+        columns = ["noise", "safety", "shopping", \
+                   "restaurant", "nightlife", "expense", "transit"]
+        for col in columns:
+            res_json[col] = float(scores_df.iloc[nbh_idx][col])
+        return res_json
+
 api.add_resource(DescriptiveData, '/api/<type>/<col>')
+api.add_resource(NLPData, '/api/nlp')
+api.add_resource(NLPDataNbh, '/api/nlp/<nbh_idx>')
+api.add_resource(ScoresData, '/api/scores')
+api.add_resource(ScoresDataNbh, '/api/scores/<nbh_idx>')
 
 if __name__ == '__main__':
     app.run(debug=True)

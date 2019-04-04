@@ -34,10 +34,14 @@ class NLPData(Resource):
         for i in range(nlp_df.shape[0]):
             res_json = {}
             res_json["nbhId"] = nlp_df.iloc[i]["neighbourhood"]
-            columns = ["cluster_sum", "noise", "safety", "entertainment", \
+            res_json["clusterSum"] = nlp_df.iloc[i]["cluster_sum"]
+            columns = ["noise", "safety", "entertainment", \
                        "restaurant", "host", "expense", "shopping", "nightlife", "transit"]
             for col in columns:
-                res_json[col] = nlp_df.iloc[i][col]
+                topic_list = []
+                for j in range(1, 6):
+                    topic_list.append(nlp_df.iloc[i][col + "_" + str(j)])
+                res_json[col] = topic_list
             res_list.append(res_json)
         return res_list
     
@@ -46,10 +50,14 @@ class NLPDataNbh(Resource):
         nbh_idx = int(nbh_idx)
         res_json = {}
         res_json["nbhId"] = nlp_df.iloc[nbh_idx]["neighbourhood"]
-        columns = ["cluster_sum", "noise", "safety", "entertainment", \
+        res_json["clusterSum"] = nlp_df.iloc[nbh_idx]["cluster_sum"]
+        columns = ["noise", "safety", "entertainment", \
                    "restaurant", "host", "expense", "shopping", "nightlife", "transit"]        
         for col in columns:
-            res_json[col] = nlp_df.iloc[nbh_idx][col]
+            topic_list = []
+            for j in range(1, 6):
+                topic_list.append(nlp_df.iloc[nbh_idx][col + "_" + str(j)])
+            res_json[col] = topic_list
         return res_json
 
 scores_df = pd.read_csv("data/scores.csv")

@@ -34,7 +34,8 @@ class NLPData(Resource):
         for i in range(nlp_df.shape[0]):
             res_json = {}
             res_json["nbhId"] = nlp_df.iloc[i]["neighbourhood"]
-            res_json["clusterSum"] = nlp_df.iloc[i]["cluster_sum"]
+            res_json["reviews"] = nlp_df.iloc[i]["reviews"]
+            res_json["overviews"] = nlp_df.iloc[i]["overviews"]
             columns = ["noise", "safety", "entertainment", \
                        "restaurant", "host", "expense", "shopping", "nightlife", "transit"]
             for col in columns:
@@ -50,7 +51,8 @@ class NLPDataNbh(Resource):
         nbh_idx = int(nbh_idx)
         res_json = {}
         res_json["nbhId"] = nlp_df.iloc[nbh_idx]["neighbourhood"]
-        res_json["clusterSum"] = nlp_df.iloc[nbh_idx]["cluster_sum"]
+        res_json["reviews"] = nlp_df.iloc[nbh_idx]["reviews"]
+        res_json["overviews"] = nlp_df.iloc[nbh_idx]["overviews"]
         columns = ["noise", "safety", "entertainment", \
                    "restaurant", "host", "expense", "shopping", "nightlife", "transit"]        
         for col in columns:

@@ -86,11 +86,26 @@ class ScoresDataNbh(Resource):
             res_json[col] = float(scores_df.iloc[nbh_idx][col])
         return res_json
 
+wf_df = pd.read_csv("data/wf.csv")
+wf_df = wf_df.replace({pd.np.nan: None})
+
+class WFDataNbh(Resource):
+    def get(self, nbh_idx):
+        nbh_idx = int(nbh_idx)
+        res_json = {}
+        res_json["nbhId"] = wf_df.iloc[nbh_idx]["neighbourhood"]
+        columns = ["noise", "safety", "entertainment",
+                   "restaurant", "host", "expense", "shopping", "nightlife", "transit"]
+        for col in columns:
+            res_json[col] = wf_df.iloc[nbh_idx][col]
+        return res_json
+
 api.add_resource(DescriptiveData, '/api/<type>/<col>')
 api.add_resource(NLPData, '/api/nlp')
 api.add_resource(NLPDataNbh, '/api/nlp/<nbh_idx>')
 api.add_resource(ScoresData, '/api/scores')
 api.add_resource(ScoresDataNbh, '/api/scores/<nbh_idx>')
+api.add_resource(WFDataNbh, '/api/wf/<nbh_idx>')
 
 if __name__ == '__main__':
     app.run(debug=True)
